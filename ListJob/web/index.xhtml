@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+    </h:head>
+    <h:body>
+      <h:form>
+        <p:dataTable var="med" value="#{entradas.listaEntradas}" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15"  editable="true" emptyMessage="No hay ningun medicamento relacionado.">
+
+              <p:column headerText="Nombre"   filterBy="#{med.nombre}">
+                                    <center>
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{med.nombre}" /></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{med.nombre}" style="width:100%" label="Codigo Almace"/></f:facet>
+                                    </p:cellEditor>
+                                        </center>
+                                </p:column>
+        <p:column headerText="Descripcion" filterBy="#{med.descripcion}">
+            <center>
+            <p:cellEditor>
+                <f:facet name="output"><h:outputText value="#{med.descripcion}" /></f:facet>
+                <f:facet name="input"><p:inputText value="#{med.descripcion}" style="width:100%" label="nombre"/></f:facet>
+            </p:cellEditor>
+                </center>
+        </p:column>
+
+            <p:column headerText="Estado" filterBy="#{med.estado}">
+            <center>
+            <p:cellEditor>
+                <f:facet name="output"><h:outputText value="#{med.estado}" /></f:facet>
+                <f:facet name="input"><p:inputText value="#{med.estado}" style="width:100%" label="presentacion"/></f:facet>
+            </p:cellEditor>
+                </center>
+        </p:column>
+            <p:column style="width:32px">   
+                                    <center>
+                                        <h:commandLink value="gg" id="btnsearch"  action="#{entradas.modificarEntradas(med)}"  />
+                                    </center>
+                                </p:column>
+              
+
+
+        </p:dataTable>         
+       </h:form>
+        
+            <h:panelGrid columns="1">
+                <p:commandButton value="Nueva tarea" type="button" onclick="PF('insertarp').show();" />
+          </h:panelGrid>
+        <h:panelGrid columns="1">
+                <p:commandButton value="Eliminar" type="button" action="#{entradas.eliminarEntradas(med)}" />
+          </h:panelGrid>
+            <h:form>
+                <p:dialog header="Formulario de Modificar Medicamento" widgetVar="insertarp" modal="true" height="450">
+                    
+                        <h:panelGrid columns="2" cellpadding="5">
+          
+        <p:outputLabel value="Nombre:" for="acSimple" />
+        <p:autoComplete id="acSimple" value="#{entradas.nuevoIEntradas.nombre}"  />
+ 
+        <p:outputLabel value="Descripcion" for="acMinLength" />
+        <p:autoComplete id="acMinLength"  value="#{entradas.nuevoIEntradas.descripcion}"  effect="fade" />
+        <p:outputLabel value="Estado:" for="acForce" />
+        <p:autoComplete id="acForce"  value="#{entradas.nuevoIEntradas.estado}" />
+        
+        <center> 
+            <h:form>
+                <h:commandButton value="#{entradas.textoBoton}" id="aja"  action="#{entradas.agregarEntradas()}" styleClass="ui-priority-primary" actionListener="#{entradas.agregarEntradas()}" />
+            </h:form></center>
+        
+        
+    </h:panelGrid>
+                    
+                    
+                </p:dialog>                   
+
+
+            </h:form>
+            
+    </h:body>
+</html>
